@@ -1,10 +1,8 @@
-const studentList = document.querySelector('ul');
+const studentList = document.querySelector('.student-list');
 const students = document.querySelectorAll('li');
 const page = document.querySelector('.page');
-const paginationList = document.querySelector('.pagination')
 const div = document.createElement('div');
-const li = document.createElement('li');
-const ul = document.createElement('ul');
+
 
 
 
@@ -20,17 +18,16 @@ document.addEventListener('load', appendPageLinks(students));
 // }
 
 function appendPageLinks(list) {
-    
+    const ul = document.createElement('ul');
     let pages = Math.ceil(list.length / 10);
-    if (students.length > 10) {
-        page.appendChild(ul);
-        ul.setAttribute('class', 'pagination');
-        const paginationList = document.querySelector('.pagination');
-        paginationList.appendChild(li);
-        li.textContent = pages;
-        for (let i = 1; i <= pages.length; i++) {
-            
-        }
+    page.appendChild(ul).setAttribute('class', 'pagination');
+    const paginationList = document.querySelector('.pagination')
+    for (let i = 1; i <= pages; i++) {
+        let pageNum = i;
+        const li = document.createElement('li');
+        const a = document.createElement('a');
+        paginationList.appendChild(li).appendChild(a);
+        let linkText
     }
 }
 
