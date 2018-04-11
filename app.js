@@ -2,11 +2,11 @@ const studentList = document.querySelector('.student-list');
 const students = document.querySelectorAll('.student-item');
 const page = document.querySelector('.page');
 let pages = Math.ceil(students.length / 10);
-let showStudents = [];
 
 
 
-document.addEventListener('load', showPage(4, students));
+
+document.addEventListener('load', showPage(1, students));
 document.addEventListener('load', appendPageLinks(students));
 
 
@@ -14,10 +14,12 @@ document.addEventListener('load', appendPageLinks(students));
 function showPage(pageNumber, list) {
     let maxList = (pageNumber * 10) - 1;
     let minList = (pageNumber * 10) - 10;
-    for (let i = 0; i <= list.length; i++) {
-        let studentName = list[i];
-        studentName.style.display = 'none';
-    }
+    for (let i = 0; i < list.length; i++) {
+        list[i].style.display = 'none';
+        if ((i >= minList) && (i <= maxList)) {
+            list[i].removeAttribute('style');
+        }
+    }    
 }
 
 
