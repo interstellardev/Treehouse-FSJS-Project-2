@@ -1,6 +1,7 @@
 const studentList = document.querySelector('.student-list');
 const students = document.querySelectorAll('.student-item');
 const page = document.querySelector('.page');
+
 let pages = Math.ceil(students.length / 10);
 
 
@@ -34,6 +35,9 @@ function appendPageLinks(list) {
         const link = paginationList.appendChild(li).appendChild(a);
         link.innerText = i;
     }
+    const pageButton = paginationList.querySelectorAll('li');
+    const pageLink = pageButton.querySelectorAll('a');
+    
 }
 
 
