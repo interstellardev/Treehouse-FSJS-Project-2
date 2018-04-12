@@ -33,11 +33,12 @@ function appendPageLinks(list) {
         const li = document.createElement('li');
         const a = document.createElement('a');
         const link = paginationList.appendChild(li).appendChild(a);
-        link.innerText = i;
+        link.innerHTML = i;
     }
-    const pageButton = paginationList.querySelectorAll('li');
-    const pageLink = pageButton.querySelectorAll('a');
+    const pageButton = paginationList.querySelectorAll('ul.pagination li a');
     
+    
+    console.log(pageButton);
 }
 
 
