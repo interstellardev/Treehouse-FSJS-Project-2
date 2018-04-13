@@ -5,12 +5,10 @@ const header = document.querySelector('.page-header');
 const div = document.createElement('div');
 const input = document.createElement('input');
 const button = document.createElement('button');
-const searchButton = document.querySelector('.student-search.button');
+const searchButton = document.querySelector('.student-search button');
 //rounding up to a whole number 
 let pages = Math.ceil(students.length / 10);
 
-console.log(header);
-console.log(searchButton);
 
 
 document.addEventListener('load', showPage(1, students));
