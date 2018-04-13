@@ -36,9 +36,12 @@ function appendPageLinks(list) {
         link.innerHTML = i;
     }
     const pageButton = paginationList.querySelectorAll('ul.pagination li a');
-    
-    
-    console.log(pageButton);
+    for (let i = 0; i < pageButton.length; i++) {
+        pageButton[i].addEventListener('click', function (e) {
+            let pageNumber = i + 1;
+            showPage(pageNumber, list);
+        });
+    }
 }
 
 
