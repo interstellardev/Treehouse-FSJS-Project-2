@@ -5,15 +5,23 @@ const header = document.querySelector('.page-header');
 const div = document.createElement('div');
 const input = document.createElement('input');
 const button = document.createElement('button');
-const searchButton = document.querySelector('.student-search button');
+
 //rounding up to a whole number 
 let pages = Math.ceil(students.length / 10);
 
+// creating search input and betton 
+header.appendChild(div).setAttribute('class', 'student-search');
+const searchDiv = document.querySelector('.student-search')
+searchDiv.appendChild(input).setAttribute('placeholder', 'Search for students...');
+searchDiv.appendChild(button).innerHTML = 'Search';
+const searchButton = searchDiv.querySelector('button');
 
 
 document.addEventListener('load', showPage(1, students));
 document.addEventListener('load', appendPageLinks(students));
-document.addEventListener('load', createSearch(students));
+searchButton.addEventListener('click', search(students));
+
+
 
 
 /* this function hides all of a list and then displays
@@ -68,11 +76,18 @@ function appendPageLinks(list) {
 }
 
 // This function creates an input element then searches the student list items
-function createSearch() {
-    header.appendChild(div).setAttribute('class', 'student-search');
-    const searchDiv = document.querySelector('.student-search')
-    searchDiv.appendChild(input).setAttribute('placeholder', 'Search for students...');
-    searchDiv.appendChild(button).innerHTML = 'Search';
-}
-
+function search(list) {
+    let searchValue = searchDiv.querySelector('input').value.toLowerCase();
+    for (let i = 0; i < list.length; i++) {
+        let studentNames = list[i].querySelector('.student-details h3').innerHTML.toLowerCase();
+        let studentEmail = list[i].querySelector('.student-details .email').innerHTML.toLowerCase();
+        let doesContainName = studentNames.search(searchValue);
+        let doesContainEmail = studentEmail.search(searchValue);
+        if ((doesContainName === -1) || (doesContainEmail === -1) ) {
+            console.log('match');
+        } else {
+            list[i].style.display = 'none';
+        }
+    }
+};
 
