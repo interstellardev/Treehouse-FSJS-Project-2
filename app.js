@@ -5,26 +5,18 @@ const header = document.querySelector('.page-header');
 const div = document.createElement('div');
 const input = document.createElement('input');
 const button = document.createElement('button');
-
-//rounding up to a whole number 
-let pages = Math.ceil(students.length / 10);
-
+const ul = document.createElement('ul');
+let matchedList = [];
 // creating search input and betton 
-header.appendChild(div).setAttribute('class', 'student-search');
-const searchDiv = document.querySelector('.student-search')
-searchDiv.appendChild(input).setAttribute('placeholder', 'Search for students...');
-searchDiv.appendChild(button).innerHTML = 'Search';
-const searchButton = searchDiv.querySelector('button');
 
-
+document.addEventListener('load', searchBuild(students));
 document.addEventListener('load', showPage(1, students));
 document.addEventListener('load', appendPageLinks(students));
-searchButton.addEventListener('click', search(students));
 
 
 
 
-/* this function hides all of a list and then displays
+/* this function hides all of a list and then displays  
 the list items that belong on the page*/
 function showPage(pageNumber, list) {
     /* these first two variables  create a range from the
@@ -44,11 +36,9 @@ function showPage(pageNumber, list) {
 /*This function creates and unordered list below the student list
 and then generates page buttons based on how many students are in the list */
 function appendPageLinks(list) {
-    const ul = document.createElement('ul');
-    // adds pagination class to ul
+    let pages = Math.ceil(list.length / 10);
     page.appendChild(ul).setAttribute('class', 'pagination');
-    const paginationList = document.querySelector('.pagination')
-    //generating the pagiantion buttons based on how many pages there are
+    const paginationList = document.querySelector('.pagination');
     for (let i = 1; i <= pages; i++) {
         const li = document.createElement('li');
         const a = document.createElement('a');
@@ -75,19 +65,28 @@ function appendPageLinks(list) {
     }
 }
 
-// This function creates an input element then searches the student list items
-function search(list) {
+
+
+function searchBuild() {
+    header.appendChild(div).setAttribute('class', 'student-search');
+    const searchDiv = document.querySelector('.student-search')
+    searchDiv.appendChild(input).setAttribute('placeholder', 'Search for students...');
+    searchDiv.appendChild(button).innerHTML = 'Search';
+    const searchButton = searchDiv.querySelector('button');
+    searchButton.addEventListener('click', () => {
+    matchedList = [];
     let searchValue = searchDiv.querySelector('input').value.toLowerCase();
-    for (let i = 0; i < list.length; i++) {
-        let studentNames = list[i].querySelector('.student-details h3').innerHTML.toLowerCase();
-        let studentEmail = list[i].querySelector('.student-details .email').innerHTML.toLowerCase();
+    for (let i = 0; i < students.length; i++) {
+        let studentNames = students[i].querySelector('.student-details h3').innerHTML.toLowerCase();
+        let studentEmail = students[i].querySelector('.student-details .email').innerHTML.toLowerCase();
         let doesContainName = studentNames.search(searchValue);
         let doesContainEmail = studentEmail.search(searchValue);
-        if ((doesContainName === -1) || (doesContainEmail === -1) ) {
-            console.log('match');
+        if (doesContainName === -1 || doesContainEmail === -1) {
+            matchedList.push(students[i]);
         } else {
-            list[i].style.display = 'none';
+            alert('There are no students matching that name.');
         }
     }
-};
-
+    appendPageLinks(matchedList);
+    });
+}
