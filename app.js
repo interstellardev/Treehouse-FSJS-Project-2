@@ -37,10 +37,10 @@ function showPage(pageNumber, list) {
 /*This function creates and unordered list below the student list
 and then generates page buttons based on how many students are in the list */
 function appendPageLinks(list) {
-    
-    let pages = Math.ceil(list.length / 10);
     page.appendChild(ul).setAttribute('class', 'pagination');
     const paginationList = document.querySelector('.pagination');
+    const pagiantionListItems = paginationList.children;
+    let pages = Math.ceil(list.length / 10);
     for (let i = 1; i <= pages; i++) {
         const link = paginationList.appendChild(document.createElement('li')).appendChild(document.createElement('a'));
         link.href = '#'
