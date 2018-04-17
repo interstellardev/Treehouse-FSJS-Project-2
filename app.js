@@ -33,16 +33,16 @@ function showPage(pageNumber, list) {
 }
 
 
+
 /*This function creates and unordered list below the student list
 and then generates page buttons based on how many students are in the list */
 function appendPageLinks(list) {
+    
     let pages = Math.ceil(list.length / 10);
     page.appendChild(ul).setAttribute('class', 'pagination');
     const paginationList = document.querySelector('.pagination');
     for (let i = 1; i <= pages; i++) {
-        const li = document.createElement('li');
-        const a = document.createElement('a');
-        const link = paginationList.appendChild(li).appendChild(a);
+        const link = paginationList.appendChild(document.createElement('li')).appendChild(document.createElement('a'));
         link.href = '#'
         link.innerHTML = i;
     }
@@ -74,19 +74,24 @@ function searchBuild() {
     searchDiv.appendChild(button).innerHTML = 'Search';
     const searchButton = searchDiv.querySelector('button');
     searchButton.addEventListener('click', () => {
-    matchedList = [];
-    let searchValue = searchDiv.querySelector('input').value.toLowerCase();
-    for (let i = 0; i < students.length; i++) {
-        let studentNames = students[i].querySelector('.student-details h3').innerHTML.toLowerCase();
-        let studentEmail = students[i].querySelector('.student-details .email').innerHTML.toLowerCase();
-        let doesContainName = studentNames.search(searchValue);
-        let doesContainEmail = studentEmail.search(searchValue);
-        if (doesContainName === -1 || doesContainEmail === -1) {
-            matchedList.push(students[i]);
-        } else {
-            alert('There are no students matching that name.');
+        matchedList = [];
+        let searchValue = searchDiv.querySelector('input').value.toLowerCase();
+        console.log(searchValue);
+        for (let i = 0; i < students.length; i++) {
+            let studentNames = students[i].querySelector('.student-details h3').innerHTML.toLowerCase();
+            let studentEmail = students[i].querySelector('.student-details .email').innerHTML.toLowerCase();
+            let doesContainName = studentNames.search(searchValue);
+            let doesContainEmail = studentEmail.search(searchValue);
+            if (doesContainName != -1 || doesContainEmail != -1) {
+                matchedList.push(students[i]);
+                students[i].removeAttribute('style');
+            } else if (doesContainName === -1 || doesContainEmail === -1) {
+                students[i].style.display = 'none';
+            }
         }
-    }
-    appendPageLinks(matchedList);
+        if (matchedList.length > 10) {
+            appendPageLinks(matchedList);
+        }
+    
     });
 }
