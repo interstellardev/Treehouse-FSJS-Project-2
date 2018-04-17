@@ -39,7 +39,7 @@ and then generates page buttons based on how many students are in the list */
 function appendPageLinks(list) {
     page.appendChild(ul).setAttribute('class', 'pagination');
     const paginationList = document.querySelector('.pagination');
-    const pagiantionListItems = paginationList.children;
+    paginationList.innerHTML = '';
     let pages = Math.ceil(list.length / 10);
     for (let i = 1; i <= pages; i++) {
         const link = paginationList.appendChild(document.createElement('li')).appendChild(document.createElement('a'));
@@ -47,7 +47,10 @@ function appendPageLinks(list) {
         link.innerHTML = i;
     }
     const pageButton = paginationList.querySelectorAll('ul.pagination li a');
-    pageButton[0].classList.add('active');
+    if (pageButton[0]) {
+        pageButton[0].classList.add('active');
+    }
+    
     // looping over pagination buttons and listening for clicks
     for (let i = 0; i < pageButton.length; i++) {
         pageButton[i].addEventListener('click', function (e) {
@@ -89,9 +92,9 @@ function searchBuild() {
                 students[i].style.display = 'none';
             }
         }
-        if (matchedList.length > 10) {
+    
             appendPageLinks(matchedList);
-        }
+        
     
     });
 }
