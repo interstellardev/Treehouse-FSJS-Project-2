@@ -41,11 +41,14 @@ function appendPageLinks(list) {
     const paginationList = document.querySelector('.pagination');
     paginationList.innerHTML = '';
     let pages = Math.ceil(list.length / 10);
-    for (let i = 1; i <= pages; i++) {
-        const link = paginationList.appendChild(document.createElement('li')).appendChild(document.createElement('a'));
-        link.href = '#'
-        link.innerHTML = i;
+    if (pages > 1) {
+        for (let i = 1; i <= pages; i++) {
+            const link = paginationList.appendChild(document.createElement('li')).appendChild(document.createElement('a'));
+            link.href = '#'
+            link.innerHTML = i;
+        }
     }
+    
     const pageButton = paginationList.querySelectorAll('ul.pagination li a');
     if (pageButton[0]) {
         pageButton[0].classList.add('active');
