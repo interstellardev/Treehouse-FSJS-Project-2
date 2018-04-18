@@ -7,7 +7,7 @@ const input = document.createElement('input');
 const button = document.createElement('button');
 const ul = document.createElement('ul');
 let matchedList = [];
-// creating search input and betton 
+
 
 document.addEventListener('load', searchBuild(students));
 document.addEventListener('load', showPage(1, students));
@@ -69,7 +69,7 @@ function appendPageLinks(list) {
 }
 
 
-
+// this function gets value of the search input and then hides everything not matching search.
 function searchBuild() {
     header.appendChild(div).setAttribute('class', 'student-search');
     const searchDiv = document.querySelector('.student-search')
@@ -79,8 +79,9 @@ function searchBuild() {
     searchButton.addEventListener('click', () => {
         matchedList = [];
         let searchValue = searchDiv.querySelector('input').value.toLowerCase();
-        console.log(searchValue);
+        //looping through the student list to see if there are any matches to the search.
         for (let i = 0; i < students.length; i++) {
+            students[i].style.display = 'none';
             let studentNames = students[i].querySelector('.student-details h3').innerHTML.toLowerCase();
             let studentEmail = students[i].querySelector('.student-details .email').innerHTML.toLowerCase();
             let doesContainName = studentNames.search(searchValue);
@@ -88,13 +89,14 @@ function searchBuild() {
             if (doesContainName != -1 || doesContainEmail != -1) {
                 matchedList.push(students[i]);
                 students[i].removeAttribute('style');
-            } else if (doesContainName === -1 || doesContainEmail === -1) {
-                students[i].style.display = 'none';
-            }
+            } 
         }
-    
-            appendPageLinks(matchedList);
-        
-    
+        //checking to see if the matchedList array is empty meaning no mathces found.
+        if (matchedList <= 0) {
+            alert("no students found");
+        }
+        //calling theses functions to first list only 10 per page and then appending buttons at the bottom
+        showPage(1, matchedList); 
+        appendPageLinks(matchedList);
     });
 }
